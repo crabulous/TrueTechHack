@@ -1,50 +1,51 @@
 import speech_recognition as sr
 from pydub import AudioSegment
+import os
+from moviepy.editor import VideoFileClip
 
-# указываем путь к аудиофайлу
-audio_file = 'tetsts.wav'
 
-# используем PyDub, чтобы прочитать аудиофайл
-audio = AudioSegment.from_wav(audio_file)
+def main(file):
+    print(os.listdir())
+    filename, _ = os.path.splitext(file)
+    convert_video_to_audio_moviepy(file)
+    segmentation = segmentation_audio(filename + '.mp3')
+    os.remove(filename + '.mp3')
+    return segmentation
 
-sample_rate = audio.frame_rate
-print(sample_rate)
 
-# создаем объект Recognizer из библиотеки SpeechRecognition
-r = sr.Recognizer()
+def convert_video_to_audio_moviepy(file, output_ext="mp3"):
+    filename, ext = os.path.splitext(file)
+    clip = VideoFileClip(file)
+    clip.audio.write_audiofile(f"{filename}.{output_ext}")
 
-# определяем порог громкости, ниже которого звук считается тишиной
-silence_threshold = 10
 
-# определяем длительность интервала тишины, чтобы не выводить слишком короткие промежутки
-silence_duration = 1
+def segmentation_audio(file):
+    audio_file = file
 
-# создаем список интервалов тишины
-silence_intervals = []
+    audio = AudioSegment.from_wav(audio_file)
 
-# разбиваем аудиофайл на фрагменты по 10 секунд
-step = 500
-print(len(audio) / sample_rate)
-for i in range(0, len(audio), step):
-    # извлекаем фрагмент аудиофайла
-    chunk = audio[i:i + step]
+    r = sr.Recognizer()
+    silence_threshold = 10
+    silence_duration = 1
+    silence_intervals = []
+    step = 500
 
-    # конвертируем PyDub AudioSegment в WAV формат для распознавания речи
-    chunk.export("temp.wav", format="wav")
+    for i in range(0, len(audio), step):
 
-    # открываем временный файл и распознаем речь с помощью библиотеки SpeechRecognition
-    with sr.AudioFile("temp.wav") as source:
-        audio_data = r.record(source)
-        try:
-            # получаем громкость аудиофайла в децибелах
-            db = sr.audioop.rms(audio_data.frame_data, audio_data.sample_width)
-            if db < silence_threshold:
-                # если громкость ниже порога тишины, добавляем интервал тишины в список
-                if not silence_intervals or (i / 1000 - silence_intervals[-1][1]) >= silence_duration:
-                    silence_intervals.append([i / 1000, (i + step) / 1000])
-        except sr.UnknownValueError as e:
-            print("Error:", str(e))
+        chunk = audio[i:i + step]
 
-# выводим интервалы тишины
-for interval in silence_intervals:
-    print(f"{interval[0]:.2f} - {interval[1]:.2f}")
+        chunk.export("temp.wav", format="wav")
+
+        with sr.AudioFile("temp.wav") as source:
+            audio_data = r.record(source)
+            try:
+
+                db = sr.audioop.rms(audio_data.frame_data, audio_data.sample_width)
+                if db < silence_threshold:
+
+                    if not silence_intervals or (i / 1000 - silence_intervals[-1][1]) >= silence_duration:
+                        silence_intervals.append([i / 1000, (i + step) / 1000])
+            except sr.UnknownValueError as e:
+                print("Error:", str(e))
+
+    return silence_intervals
