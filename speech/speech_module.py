@@ -13,7 +13,7 @@ def main(file):
     return segmentation
 
 
-def convert_video_to_audio_moviepy(file, output_ext="mp3"):
+def convert_video_to_audio_moviepy(file, output_ext="wav"):
     filename, ext = os.path.splitext(file)
     clip = VideoFileClip(file)
     clip.audio.write_audiofile(f"{filename}.{output_ext}")
@@ -47,5 +47,6 @@ def segmentation_audio(file):
                         silence_intervals.append([i / 1000, (i + step) / 1000])
             except sr.UnknownValueError as e:
                 print("Error:", str(e))
-
+    os.remove("temp.wav")
     return silence_intervals
+    
