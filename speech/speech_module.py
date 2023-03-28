@@ -34,9 +34,9 @@ def segmentation_audio(file):
 
         chunk = audio[i:i + step]
 
-        chunk.export("temp.wav", format="mp3")
+        chunk.export("temp.mp3", format="mp3")
 
-        with sr.AudioFile("temp.wav") as source:
+        with sr.AudioFile("temp.mp3") as source:
             audio_data = r.record(source)
             try:
 
