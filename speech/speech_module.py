@@ -22,7 +22,7 @@ def convert_video_to_audio_moviepy(file, output_ext="mp3"):
 def segmentation_audio(file):
     audio_file = file
 
-    audio = AudioSegment.from_wav(audio_file)
+    audio = AudioSegment.from_mp3(audio_file)
 
     r = sr.Recognizer()
     silence_threshold = 10
@@ -34,7 +34,7 @@ def segmentation_audio(file):
 
         chunk = audio[i:i + step]
 
-        chunk.export("temp.wav", format="wav")
+        chunk.export("temp.wav", format="mp3")
 
         with sr.AudioFile("temp.wav") as source:
             audio_data = r.record(source)
