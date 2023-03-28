@@ -5,7 +5,7 @@ import openai
 
 openai.api_key = "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"
 
-model = VisionEncoderDecoderModel.from_pretrained('./model_image_captioning')
+model = VisionEncoderDecoderModel.from_pretrained('nlpconnect/vit-gpt2-image-captioning')
 feature_extractor = ViTImageProcessor.from_pretrained('./model_image_captioning')
 tokenizer = AutoTokenizer.from_pretrained('./model_image_captioning')
 
