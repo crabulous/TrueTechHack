@@ -2,7 +2,7 @@ from flask import Flask
 
 app = Flask(__name__)
 
-@app.route('/audio_description')
+@app.route('/audio_description', methods=['POST'])
 def send_audio_description():
     pass
 
