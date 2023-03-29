@@ -6,8 +6,8 @@ import openai
 openai.api_key = "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"
 
 model = VisionEncoderDecoderModel.from_pretrained('nlpconnect/vit-gpt2-image-captioning')
-feature_extractor = ViTImageProcessor.from_pretrained('./model_image_captioning')
-tokenizer = AutoTokenizer.from_pretrained('./model_image_captioning')
+feature_extractor = ViTImageProcessor.from_pretrained('nlpconnect/vit-gpt2-image-captioning')
+tokenizer = AutoTokenizer.from_pretrained('nlpconnect/vit-gpt2-image-captioning')
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model.to(device)
