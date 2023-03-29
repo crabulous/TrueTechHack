@@ -2,8 +2,10 @@ from transformers import VisionEncoderDecoderModel, ViTImageProcessor, AutoToken
 import torch
 from deep_translator import GoogleTranslator
 import openai
+import json
 
-openai.api_key = "insert your apikey openAI"
+with open("../config.json", "r") as file:
+    openai.api_key = json.load(file)["openAI-api"]
 
 model = VisionEncoderDecoderModel.from_pretrained('nlpconnect/vit-gpt2-image-captioning')
 feature_extractor = ViTImageProcessor.from_pretrained('nlpconnect/vit-gpt2-image-captioning')
