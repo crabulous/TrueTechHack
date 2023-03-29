@@ -3,9 +3,9 @@
 #### Репозиторий серверной части сервиса для KION
 
 ## Другие части:
-* <a href=https://github.com/LaMileyn/Hackathon>Веб-клиент</a>
-* <a href=https://github.com/DanonAno/HackAndChangeOtkritie2022>iOS-приложение</a>
-* <a href=https://www.figma.com/file/7rgqNqAyZpgDvuCbOtO3nu/advisory>Figma</a>
+* <a href=https://github.com/LaMileyn/hackaton>Веб-клиент</a>
+* <a href=https://github.com/DanonAno/MtsHackNew/tree/main/MtsHackNew>iOS-приложение</a>
+* <a href=https://www.figma.com/file/iaXHdRTE5LTgKpJXRo5tQa/>Figma</a>
 
 
 ## О проекте
@@ -26,6 +26,7 @@
 * SpeechRecognition
 * Nginx
 * MoviePy
+* nlpconnect/vit-gpt2-image-captioning
 
 
 ## Использование
