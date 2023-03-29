@@ -3,7 +3,7 @@ import torch
 from deep_translator import GoogleTranslator
 import openai
 
-openai.api_key = "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"
+openai.api_key = "insert your apikey openAI"
 
 model = VisionEncoderDecoderModel.from_pretrained('nlpconnect/vit-gpt2-image-captioning')
 feature_extractor = ViTImageProcessor.from_pretrained('nlpconnect/vit-gpt2-image-captioning')
