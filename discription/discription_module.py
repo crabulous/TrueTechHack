@@ -3,7 +3,7 @@ import torch
 from deep_translator import GoogleTranslator
 import openai
 
-openai.api_key = "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"
+openai.api_key = "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"
 
 model = VisionEncoderDecoderModel.from_pretrained('nlpconnect/vit-gpt2-image-captioning')
 feature_extractor = ViTImageProcessor.from_pretrained('./model_image_captioning')
@@ -29,6 +29,9 @@ def predict_step(frames):
         }
 
         images = scene["frames"]
+
+        if len(images) == 0:
+            break
 
         pixel_values = feature_extractor(images=images, return_tensors="pt").pixel_values
         pixel_values = pixel_values.to(device)
